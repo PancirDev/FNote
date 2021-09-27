@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>Список клиентов</h1>
+<div class="row">
+    <div class="col-md">
+        {% for object in objects_list %}
+        <p>{{object}}</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
