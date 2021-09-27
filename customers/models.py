@@ -8,3 +8,6 @@ class Customer(models.Model):
     email = models.EmailField()
     address = models.CharField(max_length=200)
     note = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.company
