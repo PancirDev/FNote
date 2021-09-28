@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from customers.models import Customer
+from .models import Customer, Project
 
 
 class CustomerAdmin(admin.ModelAdmin):
@@ -9,3 +9,4 @@ class CustomerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Customer, CustomerAdmin)
+admin.site.register(Project)

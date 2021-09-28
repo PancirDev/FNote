@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.urls import include, path
 
-from customers.views import home
+# from customers.views import home
 
 urlpatterns = [
     path('customers/', include('customers.urls')),
-    path('home/', home),
+    # path('home/', home),
     path('admin/', admin.site.urls),
 ]
