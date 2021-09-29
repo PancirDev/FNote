@@ -23,8 +23,9 @@ def det(request, pk=None):
 
 
 class CustomerDetailView(DetailView):
-    queryset = Customer.objects.all()
-    template_name = 'customers/detail.html'
+    model = Customer
+    # queryset = Customer.objects.all()
+    # template_name = 'customers/detail.html'
 
 
 class CustomerListView(ListView):

@@ -5,10 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Customers</h1>
+    <h1>Customers 4</h1>
     <ul>
     {% for customer in object_list %}
-        <li>{{ customer.company }} - {{ customer.full_name }}</li>
+        <li><a href="{% url 'customers:detail' pk=customer.pk%}">{{ customer.company }} - {{ customer.full_name }}</a> </li>
     {% empty %}
         <li>No articles yet.</li>
     {% endfor %}
