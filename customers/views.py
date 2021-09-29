@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from .models import Customer
 
 #__all__ = (
@@ -25,3 +25,7 @@ def det(request, pk=None):
 class CustomerDetailView(DetailView):
     queryset = Customer.objects.all()
     template_name = 'customers/detail.html'
+
+
+class CustomerListView(ListView):
+    model = Customer

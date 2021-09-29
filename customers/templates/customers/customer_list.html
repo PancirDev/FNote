@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Customers</h1>
+    <ul>
+    {% for customer in object_list %}
+        <li>{{ customer.company }} - {{ customer.full_name }}</li>
+    {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
