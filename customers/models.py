@@ -1,7 +1,4 @@
-import datetime
-
 from django.db import models
-from django.utils import timezone
 
 
 class Customer(models.Model):
@@ -27,6 +24,3 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
-
-    def was_published_recently(self):
-        return self.deadline >= timezone.now() - datetime.timedelta(days=1)
