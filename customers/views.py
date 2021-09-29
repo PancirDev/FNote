@@ -3,10 +3,6 @@ from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from .models import Customer
 
-#__all__ = (
-#    'home',
-#)
-
 
 def home(request):
     qs = Customer.objects.all()
@@ -24,8 +20,6 @@ def det(request, pk=None):
 
 class CustomerDetailView(DetailView):
     model = Customer
-    # queryset = Customer.objects.all()
-    # template_name = 'customers/detail.html'
 
 
 class CustomerListView(ListView):

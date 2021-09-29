@@ -1,11 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Customer_detail.html 6</h1>
-    <h2>{{object.company}}</h2>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}{{object.company}}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="mt-3">
+            <h3>Клиент подробно</h3>
+        </div>
+        <form>
+            <fieldset disabled>
+                <div class="col-8">
+                    <div class="mt-3">
+                        <label for="companyInput" class="form-label">Организация</label>
+                        <input id="companyInput" class="form-control" type="text" value="{{object.company}}" aria-label="{{object.company}}" readonly>
+                    </div>
+                    <div class="mt-3">
+                        <label for="full_nameInput" class="form-label">Контактное лицо</label>
+                        <input id="full_nameInput" class="form-control" type="text" value="{{object.full_name}}" aria-label="{{object.full_name}}" readonly>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="row justify-content-start">
+                        <div class="col-4">
+                            <label for="phoneInput" class="form-label">Телефон</label>
+                            <input id="phoneInput" class="form-control" type="text" value="{{object.phone}}" aria-label="{{object.phone}}" readonly>
+                        </div>
+                        <div class="col-4">
+                            <label for="emailInput" class="form-label">email</label>
+                            <input id="emailInput" class="form-control" type="text" value="{{object.email}}" aria-label="{{object.email}}" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="mt-3">
+                        <label for="addressInput" class="form-label">Адрес</label>
+                        <input id="addressInput" class="form-control" type="text" value="{{object.address}}" aria-label="{{object.address}}" readonly>
+                    </div>
+                    <div class="mt-3">
+                        <label for="noteInput" class="form-label">Дополнительно</label>
+                        <textarea id="noteInput" class="form-control" type="text" aria-label="{{object.phone}}" rows="2">{{object.note}}</textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div class="mt-3">
+            <a href="{% url 'customers:list' %}"><button type="button" class="btn btn-light">Назад к списку Клиентов</button></a>
+        </div>
+    </div>
+{% endblock %}
