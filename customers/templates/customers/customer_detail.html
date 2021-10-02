@@ -20,7 +20,6 @@
                             <input id="full_nameInput" class="form-control" type="text" value="{{customer.full_name}}"
                                    aria-label="{{customer.full_name}}" readonly>
                         </div>
-
                         <div class="mt-3">
                             <div class="row justify-content-start">
                                 <div class="col-7">
@@ -48,10 +47,16 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="m-3">
-                            <label for="emailInput2" class="form-label">email</label>
-                            <input id="emailInput2" class="form-control" type="text" value="{{customer.email}}"
-                                   aria-label="{{customer.email}}" readonly>
+                        <div class="mt-3">
+                            <label for="projectsList" class="form-label">Список проектов</label>
+                            <ul id="projectsList" class="list-group">
+                                {% for project in project_list %}
+                                <li class="list-group-item"><a href="{% url 'customers:project_detail' pk=project.pk%}">
+                                    {{project.name}}</a></li>
+                                {% empty %}
+                                <li>Список проектов пуст</li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>

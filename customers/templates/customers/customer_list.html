@@ -7,7 +7,7 @@
             <h3>Список клиентов</h3>
         </div>
         <ul class="list-group">
-            {% for customer in customer_list %}
+            {% for customer in customers_list %}
             <li class="list-group-item"><a href="{% url 'customers:detail' pk=customer.pk%}">{{ customer.company }} -
                 {{ customer.full_name }}</a></li>
             {% empty %}
