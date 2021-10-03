@@ -9,11 +9,11 @@ class CustomerAdmin(admin.ModelAdmin):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['name', 'state', 'deadline', 'completed']
+    list_display = ['name', 'customer', 'deadline', 'completed']
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['task', 'estimate', 'deadline']
+    list_display = ['description', 'state_text', 'estimate', 'deadline']
 
 
 admin.site.register(Customer, CustomerAdmin)

@@ -54,7 +54,7 @@
                                 <li class="list-group-item"><a href="{% url 'customers:project_detail' pk=project.pk%}">
                                     {{project.name}}</a></li>
                                 {% empty %}
-                                <li>Список проектов пуст</li>
+                                <li class="list-group-item">Проекты не найдены</li>
                                 {% endfor %}
                             </ul>
                         </div>
