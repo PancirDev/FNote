@@ -1,5 +1,5 @@
 from django.views.generic import DetailView, ListView
-from .models import Customer, Project
+from .models import Customer, Project, Task
 
 
 class CustomerDetailView(DetailView):
@@ -26,3 +26,8 @@ class ProjectListView(ListView):
 
 class ProjectDetailView(DetailView):
     model = Project
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_list'] = Task.objects.filter(project=context['project'])
+        return context
