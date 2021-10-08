@@ -43,3 +43,8 @@ class CustomerUpdate(UpdateView):
     template_name = 'customers/customer_update.html'
     success_url = reverse_lazy('customers:list')
     success_message = 'Клиент успешно отредактирован'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project_list'] = Project.objects.filter(customer=context['customer'])
+        return context
