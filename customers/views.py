@@ -1,4 +1,7 @@
-from django.views.generic import DetailView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, UpdateView
+
+from .forms import CustomerForm, UserInfoForm
 from .models import Customer, Project, Task
 
 
@@ -31,3 +34,12 @@ class ProjectDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['task_list'] = Task.objects.filter(project=context['project'])
         return context
+
+
+class CustomerUpdate(UpdateView):
+    model = Customer
+    form_class = CustomerForm
+    # form_class = UserInfoForm
+    template_name = 'customers/customer_update.html'
+    success_url = reverse_lazy('customers:list')
+    success_message = 'Клиент успешно отредактирован'
