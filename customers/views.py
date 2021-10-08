@@ -1,4 +1,4 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, ListView, UpdateView
 
 from .forms import CustomerForm, UserInfoForm
@@ -39,10 +39,12 @@ class ProjectDetailView(DetailView):
 class CustomerUpdate(UpdateView):
     model = Customer
     form_class = CustomerForm
-    # form_class = UserInfoForm
     template_name = 'customers/customer_update.html'
-    success_url = reverse_lazy('customers:list')
     success_message = 'Клиент успешно отредактирован'
+
+    def get_success_url(self):
+        customer_id = self.kwargs['pk']
+        return reverse_lazy('customers:detail', kwargs={'pk': customer_id})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
