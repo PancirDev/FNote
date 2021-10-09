@@ -7,16 +7,6 @@
         <div class="mt-3">
             <h3>Список контрагентов</h3>
         </div>
-        <!--
-            <ul class="list-group">
-            {% for customer in customers_list %}
-            <li class="list-group-item"><a href="{% url 'customers:detail' pk=customer.pk%}">{{ customer.company }} -
-                {{ customer.full_name }}</a></li>
-            {% empty %}
-            <li>Список контрагентов пуст</li>
-            {% endfor %}
-        </ul>
-        -->
         <table class="table align-middle table-striped">
             {% for customer in customers_list %}
             <tr>
@@ -32,7 +22,7 @@
                     </a>
                 </td>
                 <td>
-                    <a href="#">
+                    <a href="{% url 'customers:delete' pk=customer.pk%}">
                         <button type="button" class="btn btn-outline-dark">
                             {% bs_icon 'trash' %}Удалить
                         </button>

@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy, reverse
-from django.views.generic import DetailView, ListView, UpdateView
+from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 
 from .forms import CustomerForm, UserInfoForm
 from .models import Customer, Project, Task
@@ -12,7 +12,7 @@ class CustomerDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['project_list'] = Project.objects.filter(customer=context['customer'])
+        context['project_list'] = context['customer'].project_set.all()
         return context
 
 
@@ -50,3 +50,8 @@ class CustomerUpdate(UpdateView):
         context = super().get_context_data(**kwargs)
         context['project_list'] = Project.objects.filter(customer=context['customer'])
         return context
+
+
+class CustomerDelete(DeleteView):
+    model = Customer
+    template_name = 'customers/customer_delete.html'
