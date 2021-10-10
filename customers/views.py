@@ -1,19 +1,9 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
-from django.views.generic import DetailView, ListView, UpdateView, DeleteView
+from django.views.generic import DetailView, ListView, UpdateView, DeleteView, CreateView
 
 from .forms import CustomerForm, UserInfoForm
 from .models import Customer, Project, Task
-
-
-class CustomerDetailView(DetailView):
-    model = Customer
-    # template_name = 'customers/customer_detail.html'
-    # context_object_name = 'customer'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['project_list'] = context['customer'].project_set.all()
-        return context
 
 
 class CustomerListView(ListView):
@@ -36,7 +26,7 @@ class ProjectDetailView(DetailView):
         return context
 
 
-class CustomerUpdate(UpdateView):
+class CustomerUpdate(SuccessMessageMixin, UpdateView):
     model = Customer
     form_class = CustomerForm
     template_name = 'customers/customer_update.html'
@@ -44,7 +34,7 @@ class CustomerUpdate(UpdateView):
 
     def get_success_url(self):
         customer_id = self.kwargs['pk']
-        return reverse_lazy('customers:detail', kwargs={'pk': customer_id})
+        return reverse_lazy('customers:update', kwargs={'pk': customer_id})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,6 +42,16 @@ class CustomerUpdate(UpdateView):
         return context
 
 
-class CustomerDelete(DeleteView):
+class CustomerDelete(SuccessMessageMixin, DeleteView):
     model = Customer
     template_name = 'customers/customer_delete.html'
+    success_url = reverse_lazy('customers:list')
+    success_message = 'Клиент успешно удален'
+
+
+class CustomerCreate(CreateView):
+    model = Customer
+    form_class = CustomerForm
+    template_name = 'customers/customer_update.html'
+    success_url = reverse_lazy('customers:list')
+    success_message = 'Клиент успешно создан'

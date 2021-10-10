@@ -22,4 +22,13 @@ ProtectedError
  зд===
 
 Кнопка Удалить Назад к списку Контр/Проектов/Задач
+<h1>Удалить {{ object }}</h1>
+<p>{{ object }}</p>
+<form action="{{action}}" method="post"> {% csrf_token %}
+<div class="mt-3">
+ <div class="form-group">
+ <input class="btn btn-outline-success" type="submit" value="Удалить">
+ </div>
+</div>
+</form>
 {% endblock %}

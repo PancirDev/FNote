@@ -2,37 +2,44 @@
 {% load bootstrap_icons %}
 {% block title %}Контрагенты{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="col-8">
+<div class="row">
+    <div class="col-auto me-auto">
         <div class="mt-3">
-            <h3>Список контрагентов</h3>
+            <h3>Все контрагенты</h3>
         </div>
-        <table class="table align-middle table-striped">
-            {% for customer in customers_list %}
-            <tr>
-                <td>
-                    <a href="{% url 'customers:detail' pk=customer.pk%}">{{ customer.company }} -
-                {{ customer.full_name }}</a>
-                </td>
-                <td>
-                    <a href="{% url 'customers:update' pk=customer.pk%}">
-                        <button type="button" class="btn btn-outline-dark">
-                            {% bs_icon 'pencil-square' %}Изменить
-                        </button>
-                    </a>
-                </td>
-                <td>
-                    <a href="{% url 'customers:delete' pk=customer.pk%}">
-                        <button type="button" class="btn btn-outline-dark">
-                            {% bs_icon 'trash' %}Удалить
-                        </button>
-                    </a>
-                </td>
-            </tr>
-            {% empty %}
-                <h4>Список контрагентов пуст</h4>
-            {% endfor %}
-        </table>
+    </div>
+    <div class="col-auto">
+        <div class="mt-3">
+            <a href="{% url 'customers:create' %}">
+                <button type="button" class="btn btn-outline-dark">
+                    {% bs_icon 'plus-square' %}Новый Контрагент
+                </button>
+            </a>
+        </div>
     </div>
 </div>
+<table class="table align-middle table-striped">
+    {% for customer in customers_list %}
+    <tr>
+        <td>
+            <a href="{% url 'customers:update' pk=customer.pk %}">{{ customer.company }}</a>
+        </td>
+        <td>
+            <a href="{% url 'customers:update' pk=customer.pk %}">{{ customer.full_name }}</a>
+        </td>
+        <td>
+            <div class="text-end">
+            <a href="{% url 'customers:delete' pk=customer.pk %}">
+                <button type="button" class="btn btn-outline-dark">
+                    {% bs_icon 'trash' %}Удалить
+                </button>
+            </a>
+            </div>
+        </td>
+    </tr>
+    {% empty %}
+    <h4>Список контрагентов пуст</h4>
+    {% endfor %}
+</table>
+
 {% endblock %}
