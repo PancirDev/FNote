@@ -49,9 +49,18 @@ class CustomerDelete(SuccessMessageMixin, DeleteView):
     success_message = 'Клиент успешно удален'
 
 
-class CustomerCreate(CreateView):
+class CustomerCreate(SuccessMessageMixin, CreateView):
     model = Customer
     form_class = CustomerForm
     template_name = 'customers/customer_update.html'
-    success_url = reverse_lazy('customers:list')
+    # success_url = reverse_lazy('customers:list')
     success_message = 'Клиент успешно создан'
+
+    def get_success_url(self):
+        customer_id = self.object.pk
+        return reverse('customers:update', kwargs={'pk': customer_id})
+
+    def get_form_kwargs(self, *args, **kwargs):
+            kwargs = super(CustomerCreate, self).get_form_kwargs(*args, **kwargs)
+            return kwargs
+

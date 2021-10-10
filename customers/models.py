@@ -7,7 +7,7 @@ class Customer(models.Model):
     phone = models.CharField(max_length=17)
     email = models.EmailField()
     address = models.CharField(max_length=200)
-    note = models.CharField(max_length=300)
+    note = models.CharField(max_length=300, blank=True)
 
     def __str__(self):
         return self.company

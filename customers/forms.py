@@ -19,12 +19,13 @@ class CustomerForm(forms.ModelForm):
         widgets = {
             'company': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Организация'
+                'placeholder': 'Организация',
+                'value': 'Тестовая Организация',
             }),
             'full_name': TextInput(attrs={
                 'class': 'form-control',
                 'label': 'Контактное лицо',
-                'placeholder': 'Контактное лицо'
+                'placeholder': 'Контактное лицо',
             }),
             'phone': TextInput(attrs={
                 'class': 'form-control',
