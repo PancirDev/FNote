@@ -2,7 +2,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView, CreateView
 
-from .forms import CustomerForm
+from .forms import CustomerForm, ProjectForm
 from .models import Customer, Project, Task
 
 
@@ -57,9 +57,57 @@ class CustomerListView(ListView):
     context_object_name = 'customers_list'
 
 
+class ProjectCreate(SuccessMessageMixin, CreateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'customers/project_update.html'
+    success_message = 'Проект успешно создан'
+
+    def get_success_url(self):
+        project_id = self.object.pk
+        return reverse('customers:project_update', kwargs={'pk': project_id})
+
+    def get_form_kwargs(self, *args, **kwargs):
+            kwargs = super(ProjectCreate, self).get_form_kwargs(*args, **kwargs)
+            return kwargs
+
+
+class ProjectUpdate(SuccessMessageMixin, UpdateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'customers/project_update.html'
+    success_message = 'Проект успешно отредактирован'
+
+    def get_success_url(self):
+        project_id = self.kwargs['pk']
+        return reverse_lazy('customers:project_update', kwargs={'pk': project_id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['project_list'] = Project.objects.filter(customer=context['customer'])
+        # context['project_list'] = context['customer'].project_set.all()
+        context['task_list'] = Task.objects.filter(project=context['project'])
+        return context
+
+
+class ProjectDelete(SuccessMessageMixin, DeleteView):
+    model = Project
+    template_name = 'customers/project_delete.html'
+    success_url = reverse_lazy('customers:projects_list')
+    success_message = 'Проект успешно удален'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['project_list'] = Project.objects.filter(customer=context['customer'])
+        # context['project_list'] = context['customer'].project_set.all()
+        context['task_list'] = Task.objects.filter(project=context['project'])
+        return context
+
+
 class ProjectListView(ListView):
     model = Project
     context_object_name = 'projects_list'
+    template_name = 'customers/projects_list.html'
 
 
 class ProjectDetailView(DetailView):
