@@ -1,34 +1,44 @@
 {% extends "base.html" %}
 {% load bootstrap_icons %}
-{% block title %}Контрагенты{% endblock %}
+{% block title %}Удаление {{ customer }}{% endblock %}
 {% block content %}
-Delete view
-Если связей нет:
-Вы уверены что хотите удалить Контр/Проектов/Задач====?
-
-
-Если связи есть:
-ProtectedError
-Невозможно удалить кн===========
-Предварительно нужно удалить
-Проекты:
- пр===
-Задания
- зд===
-
-Невозможно удалить пр===========
-Предварительно нужно удалить
-Задания
- зд===
-
-Кнопка Удалить Назад к списку Контр/Проектов/Задач
-<h1>Удалить {{ object }}</h1>
-<p>{{ object }}</p>
-<form action="{{action}}" method="post"> {% csrf_token %}
-<div class="mt-3">
- <div class="form-group">
- <input class="btn btn-outline-success" type="submit" value="Удалить">
- </div>
-</div>
-</form>
+<div class="col-9">
+    {% if project_list %}
+        <div class="mt-3">
+            <h3>Невозможно удалить
+                <a href="{% url 'customers:update' pk=customer.pk %}">{{ customer.company }}</a>
+            </h3>
+            <h4>у данного контрагента есть проекты:</h4>
+        </div>
+        <div class="mt-3">
+            {% include 'advanced_forms/styled_list.html' %}
+        </div>
+    {% else %}
+        <div class="mt-3">
+            <h3>Вы уверены что хотите удалить
+                <a href="{% url 'customers:update' pk=customer.pk %}">{{ customer.company }}</a>
+                ?
+            </h3>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-auto me-auto">
+            <div class="mt-3">
+                <a href="{% url 'customers:list' %}">
+                    <button type="button" class="btn btn-outline-dark">К списку Контрагентов</button>
+                </a>
+            </div>
+        </div>
+        {% if not project_list %}
+            <div class="col-auto">
+                <form action="{{action}}" method="post"> {% csrf_token %}
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <input class="btn btn-outline-danger" type="submit" value="Удалить">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    </div></div>
 {% endblock %}

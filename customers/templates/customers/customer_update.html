@@ -56,26 +56,12 @@
                                 </div>
                             </div>
                         </div>
+                        {% if object %}
                         <div class="col m-3">
-                            {%  if object %}
-                            <div class="">
-                                <h4>Проекты</h4>
-                            </div>
-                            <div class="mt-3">
-                                <ul id="projectsList" class="list-group">
-                                    {% for project in project_list %}
-                                    <li class="list-group-item">
-                                        <a href="{% url 'customers:project_detail' pk=project.pk%}">
-                                            {{project.name}}
-                                        </a>
-                                    </li>
-                                    {% empty %}
-                                    <li class="list-group-item">Проекты не найдены</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            {% endif %}
+                            <h4>Проекты</h4>
+                            {% include 'advanced_forms/styled_list.html' %}
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </fieldset>
