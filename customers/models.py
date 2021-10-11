@@ -9,6 +9,9 @@ class Customer(models.Model):
     address = models.CharField(max_length=200)
     note = models.CharField(max_length=300, blank=True)
 
+    class Meta:
+        ordering = ['company']
+
     def __str__(self):
         return self.company
 
