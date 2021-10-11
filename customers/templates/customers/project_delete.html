@@ -1,11 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Hello World!<br>
-I'm project_delete.html</h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+{% block title %}Удаление {{ object }}{% endblock %}
+{% block content %}
+<div class="col-9">
+    {% if object_list %}
+        <div class="mt-3">
+            <h3>Невозможно удалить
+                <a href="{% url 'customers:project_update' pk=object.pk %}">{{ object.name }}</a>
+            </h3>
+            <h4>у данного проекта есть задачи:</h4>
+        </div>
+        <div class="mt-3">
+            {% include 'advanced_forms/styled_list.html' with object_url='customers:project_update' %}
+        </div>
+    {% else %}
+        <div class="mt-3">
+            <h3>Вы уверены что хотите удалить
+                <a href="{% url 'customers:project_update' pk=object.pk %}">{{ object.name }}</a>
+                ?
+            </h3>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-auto me-auto">
+            <div class="mt-4">
+                <a href="{% url 'customers:projects_list' %}">
+                    <button type="button" class="btn btn-outline-dark">К списку Проектов</button>
+                </a>
+            </div>
+        </div>
+        {% if not object_list %}
+            <div class="col-auto">
+                <form action="{{action}}" method="post"> {% csrf_token %}
+                    <div class="mt-4">
+                        <div class="form-group">
+                            <input class="btn btn-outline-danger" type="submit" value="Удалить">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    </div></div>
+{% endblock %}

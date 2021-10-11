@@ -86,7 +86,8 @@ class ProjectUpdate(SuccessMessageMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         # context['project_list'] = Project.objects.filter(customer=context['customer'])
         # context['project_list'] = context['customer'].project_set.all()
-        context['object_list'] = Task.objects.filter(project=context['project'])
+        # context['object_list'] = Task.objects.filter(project=context['project'])
+        context['object_list'] = context['project'].task_set.all()
         return context
 
 
@@ -100,7 +101,8 @@ class ProjectDelete(SuccessMessageMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         # context['project_list'] = Project.objects.filter(customer=context['customer'])
         # context['project_list'] = context['customer'].project_set.all()
-        context['object_list'] = Task.objects.filter(project=context['project'])
+        # context['object_list'] = Task.objects.filter(project=context['project'])
+        context['object_list'] = context['project'].task_set.all()
         return context
 
 
