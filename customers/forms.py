@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, TextInput, EmailInput, Textarea
+from django.forms import ModelForm, TextInput, EmailInput, Textarea, NumberInput, DateInput, CheckboxInput
 
 from .models import Customer, Project
 
@@ -54,7 +54,7 @@ class ProjectForm(forms.ModelForm):
             'customer': 'Контрагент',
             'description': 'Описание',
             'deadline': 'Срок сдачи',
-            'price': 'Стоимость',
+            'price': 'Сумма',
             'paid': 'Оплачен',
             'completed': 'Завершен',
         }
@@ -63,12 +63,27 @@ class ProjectForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Проект',
             }),
-            'customer': TextInput(attrs={
+            'customer': forms.Select(attrs={
                 'class': 'form-control',
                 'placeholder': 'Контрагент',
             }),
-            'description': TextInput(attrs={
+            'description': Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Описание'
+                'placeholder': 'Описание',
+                'rows': '2',
+            }),
+            'deadline': DateInput(attrs={
+                'class': 'form-control',
+                'placeholder': '2021-12-31',
+            }),
+            'price': NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'к оплате',
+            }),
+            'paid': CheckboxInput(attrs={
+                'class': 'form-check-input',
+            }),
+            'completed': CheckboxInput(attrs={
+                'class': 'form-check-input',
             }),
         }

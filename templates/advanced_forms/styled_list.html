@@ -1,9 +1,9 @@
 <div class="mt-3">
-    <ul id="projectsList" class="list-group">
-        {% for project in project_list %}
+    <ul class="list-group">
+        {% for object in object_list %}
             <li class="list-group-item">
-                <a href="{% url 'customers:project_detail' pk=project.pk%}">
-                    {{project.name}}
+                <a href="{% url object_url pk=object.pk %}">
+                    {{object}}
                 </a>
             </li>
         {% empty %}

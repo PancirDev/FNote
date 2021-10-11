@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}Редактирование Контрагента{% endblock %}
+{% load bootstrap_icons %}
+{% block title %}{{object}}{% endblock %}
 {% block content %}
     <form class="form-contact" action="" method="POST">
         {% csrf_token %}
@@ -41,14 +42,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-auto me-auto">
-                                    <div class="mt-3">
+                                    <div class="mt-4">
                                         <a href="{% url 'customers:list' %}">
                                             <button type="button" class="btn btn-outline-dark">К списку Контрагентов</button>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <div class="mt-3">
+                                    <div class="mt-4">
                                         <div class="form-group">
                                             <input class="btn btn-outline-success" type="submit" value="Сохранить">
                                         </div>
@@ -58,8 +59,21 @@
                         </div>
                         {% if object %}
                         <div class="col m-3">
-                            <h4>Проекты</h4>
-                            {% include 'advanced_forms/styled_list.html' %}
+                            <div class="row">
+                                <div class="col-auto me-auto">
+                                    <h4>Проекты</h4>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="mt-0">
+                                        <a href="{% url 'customers:project_create' %}">
+                                            <button type="button" class="btn btn-outline-dark">
+                                                {% bs_icon 'plus-square' %}Новый Проект
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% include 'advanced_forms/styled_list.html' with object_url='customers:project_update' %}
                         </div>
                         {% endif %}
                     </div>

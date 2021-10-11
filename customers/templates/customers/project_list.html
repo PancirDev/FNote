@@ -19,20 +19,20 @@
     </div>
 </div>
 <table class="table align-middle table-striped">
-    {% for project in projects_list %}
+    {% for object in objects_list %}
     <tr>
         <td>
-            <a href="{% url 'customers:project_update' pk=project.pk %}">{{ project.name }}</a>
+            <a href="{% url 'customers:project_update' pk=object.pk %}">{{ object.name }}</a>
         </td>
         <td>
-            <a href="{% url 'customers:update' pk=project.customer.pk %}">{{ project.customer.full_name }}</a>
+            <a href="{% url 'customers:update' pk=object.customer.pk %}">{{ object.customer.company }}</a>
         </td>
         <td>
-            {{ project.deadline }}
+            {{ object.deadline }}
         </td>
         <td>
             <div class="text-end">
-            <a href="{% url 'customers:project_delete' pk=project.pk %}">
+            <a href="{% url 'customers:project_delete' pk=object.pk %}">
                 <button type="button" class="btn btn-outline-dark">
                     {% bs_icon 'trash' %}Удалить
                 </button>
@@ -41,7 +41,7 @@
         </td>
     </tr>
     {% empty %}
-    <h4>Список проектов пуст</h4>
+        <h4>Список проектов пуст</h4>
     {% endfor %}
 </table>
 {% endblock %}

@@ -34,7 +34,7 @@ class CustomerUpdate(SuccessMessageMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['project_list'] = Project.objects.filter(customer=context['customer'])
-        context['project_list'] = context['customer'].project_set.all()
+        context['object_list'] = context['customer'].project_set.all()
         return context
 
 
@@ -47,7 +47,7 @@ class CustomerDelete(SuccessMessageMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['project_list'] = Project.objects.filter(customer=context['customer'])
-        context['project_list'] = context['customer'].project_set.all()
+        context['object_list'] = context['customer'].project_set.all()
         return context
 
 
@@ -86,7 +86,7 @@ class ProjectUpdate(SuccessMessageMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         # context['project_list'] = Project.objects.filter(customer=context['customer'])
         # context['project_list'] = context['customer'].project_set.all()
-        context['task_list'] = Task.objects.filter(project=context['project'])
+        context['object_list'] = Task.objects.filter(project=context['project'])
         return context
 
 
@@ -100,20 +100,11 @@ class ProjectDelete(SuccessMessageMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         # context['project_list'] = Project.objects.filter(customer=context['customer'])
         # context['project_list'] = context['customer'].project_set.all()
-        context['task_list'] = Task.objects.filter(project=context['project'])
+        context['object_list'] = Task.objects.filter(project=context['project'])
         return context
 
 
-class ProjectListView(ListView):
+class ProjectList(ListView):
     model = Project
-    context_object_name = 'projects_list'
+    context_object_name = 'objects_list'
     template_name = 'customers/projects_list.html'
-
-
-class ProjectDetailView(DetailView):
-    model = Project
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task_list'] = Task.objects.filter(project=context['project'])
-        return context
