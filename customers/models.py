@@ -20,8 +20,6 @@ class Project(models.Model):
     name = models.CharField(max_length=150)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     description = models.CharField(max_length=300)
-    # state = models.CharField(max_length=30)
-    # state = models.ForeignKey(Task, on_delete=models.CASCADE)
     deadline = models.DateField()
     price = models.FloatField()
     paid = models.BooleanField(default=False)
@@ -32,13 +30,11 @@ class Project(models.Model):
 
 
 class Task(models.Model):
-    # project | state_index | state_text | estimate | deadline_date
     name = models.CharField(max_length=300)
     project = models.ForeignKey(Project, on_delete=models.PROTECT)
     state_text = models.CharField(max_length=20)
     estimate = models.FloatField()
     deadline = models.DateField()
-    # ready = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

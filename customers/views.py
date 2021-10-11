@@ -34,7 +34,6 @@ class CustomerUpdate(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['project_list'] = Project.objects.filter(customer=context['customer'])
         context['object_list'] = context['customer'].project_set.all()
         return context
 
@@ -47,7 +46,6 @@ class CustomerDelete(SuccessMessageMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['project_list'] = Project.objects.filter(customer=context['customer'])
         context['object_list'] = context['customer'].project_set.all()
         return context
 
@@ -85,9 +83,6 @@ class ProjectUpdate(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['project_list'] = Project.objects.filter(customer=context['customer'])
-        # context['project_list'] = context['customer'].project_set.all()
-        # context['object_list'] = Task.objects.filter(project=context['project'])
         context['object_list'] = context['project'].task_set.all()
         return context
 
@@ -100,9 +95,6 @@ class ProjectDelete(SuccessMessageMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['project_list'] = Project.objects.filter(customer=context['customer'])
-        # context['project_list'] = context['customer'].project_set.all()
-        # context['object_list'] = Task.objects.filter(project=context['project'])
         context['object_list'] = context['project'].task_set.all()
         return context
 
@@ -122,14 +114,6 @@ class TaskUpdate(SuccessMessageMixin, UpdateView):
     def get_success_url(self):
         task_id = self.kwargs['pk']
         return reverse_lazy('customers:task_update', kwargs={'pk': task_id})
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context['project_list'] = Project.objects.filter(customer=context['customer'])
-        # context['project_list'] = context['customer'].project_set.all()
-        # context['object_list'] = Task.objects.filter(project=context['project'])
-        # context['object_list'] = context['project'].task_set.all()
-        return context
 
 
 class TaskCreate(SuccessMessageMixin, CreateView):

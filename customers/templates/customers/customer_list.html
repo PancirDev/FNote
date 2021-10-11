@@ -29,11 +29,11 @@
         </td>
         <td>
             <div class="text-end">
-            <a href="{% url 'customers:delete' pk=customer.pk %}">
-                <button type="button" class="btn btn-outline-dark">
-                    {% bs_icon 'trash' %}Удалить
-                </button>
-            </a>
+                <a href="{% url 'customers:delete' pk=customer.pk %}">
+                    <button type="button" class="btn btn-outline-dark">
+                        {% bs_icon 'trash' %}Удалить
+                    </button>
+                </a>
             </div>
         </td>
     </tr>
