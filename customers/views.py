@@ -2,7 +2,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView, CreateView
 
-from .forms import CustomerForm, ProjectForm
+from .forms import CustomerForm, ProjectForm, TaskForm
 from .models import Customer, Project, Task
 
 
@@ -110,3 +110,37 @@ class ProjectList(ListView):
     model = Project
     context_object_name = 'objects_list'
     template_name = 'customers/projects_list.html'
+
+
+class TaskUpdate(SuccessMessageMixin, UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = 'customers/task_update.html'
+    success_message = 'Задача успешно отредактирована'
+
+    def get_success_url(self):
+        project_id = self.kwargs['pk']
+        return reverse_lazy('customers:project_update', kwargs={'pk': project_id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['project_list'] = Project.objects.filter(customer=context['customer'])
+        # context['project_list'] = context['customer'].project_set.all()
+        # context['object_list'] = Task.objects.filter(project=context['project'])
+        # context['object_list'] = context['project'].task_set.all()
+        return context
+
+
+class TaskCreate(SuccessMessageMixin, CreateView):
+    model = Task
+    form_class = TaskForm
+    template_name = 'customers/task_update.html'
+    success_message = 'Задача успешно создана'
+
+    def get_success_url(self):
+        project_id = self.object.pk
+        return reverse('customers:task_update', kwargs={'pk': project_id})
+
+    def get_form_kwargs(self, *args, **kwargs):
+            kwargs = super(TaskCreate, self).get_form_kwargs(*args, **kwargs)
+            return kwargs

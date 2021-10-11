@@ -1,80 +1,158 @@
 {% extends 'base.html' %}
+{% load bootstrap_icons %}
 {% block title %}{{object}}{% endblock %}
 {% block content %}
-    <form class="form-contact" action="" method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-            <fieldset>
-                <div>
-                    <div class="row justify-content-start">
-                        <div class="col-7 m-3">
-                            <div class="">
-                                <h4>Проект</h4>
-                            </div>
-                            <div class="mt-3">
-                                {{form.name.label}}
-                                {{form.name}}
-                            </div>
-                            <div class="mt-3">
-                                {{form.customer.label}}
-                                {{form.customer}}
-                            </div>
-                            <div class="mt-3">
-                                {{form.description.label}}
-                                {{form.description}}
-                            </div>
-                            <div class="mt-3">
-                                <div class="row justify-content-start">
-                                    <div class="col">
-                                        {{form.deadline.label}}
-                                        {{form.deadline}}
-                                    </div>
-                                    <div class="col">
-                                        {{form.price.label}}
-                                        {{form.price}}
-                                    </div>
-                                    <div class="col">
-                                        <div class="mt-1">
-                                            <br>
-                                            {{form.paid}}
-                                            {{form.paid.label}}
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="mt-1">
-                                            <br>
-                                            {{form.completed}}
-                                            {{form.completed.label}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-auto me-auto">
-                                    <div class="mt-4">
-                                        <a href="{% url 'customers:projects_list' %}">
-                                            <button type="button" class="btn btn-outline-dark">К списку Проектов</button>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="mt-4">
-                                        <div class="form-group">
-                                            <input class="btn btn-outline-success" type="submit" value="Сохранить">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% if object %}
-                        <div class="col m-3">
-                            <h4>Задачи</h4>
-                            {% include 'advanced_forms/styled_list.html' with object_url='customers:project_update' %}
-                        </div>
-                        {% endif %}
+<form class="form-contact" action="" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="row">
+            <div class="col-auto me-auto">
+                <div class="mt-1">
+                    <a href="{% url 'customers:projects_list' %}">
+                        <button type="button" class="btn btn-outline-dark">К списку Проектов</button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="mt-4">
+                    <div class="form-group">
+                        <input class="btn btn-outline-success" type="submit" value="Сохранить Проект">
                     </div>
                 </div>
-            </fieldset>
+            </div>
         </div>
-    </form>
+        <fieldset>
+            <div class="row justify-content-start">
+                <div class="col">
+
+                    <div class="mt-3">
+                        <h4>Проект</h4>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <div class="mt-0">
+                        <br>
+                        {{form.paid}}
+                        {{form.paid.label}}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="mt-0">
+                        <br>
+                        {{form.completed}}
+                        {{form.completed.label}}
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-5">
+                    <div class="mt-3">
+                        {{form.name.label}}
+                        {{form.name}}
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="mt-3">
+                        {{form.customer.label}}
+                        {{form.customer}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mt-3">
+                        {{form.deadline.label}}
+                        {{form.deadline}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mt-3">
+                        {{form.price.label}}
+                        {{form.price}}
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                {{form.description.label}}
+                {{form.description}}
+            </div>
+            <div class="mt-3">
+            </div>
+        </fieldset>
+    </div>
+    {% if object %}
+    <div class="mt-5">
+        <div class="row">
+            <div class="col-auto me-auto">
+                <h4>Задачи</h4>
+            </div>
+            <div class="col-auto">
+                <div class="mt-0">
+                    <a href="{% url 'customers:task_create' %}">
+                        <button type="button" class="btn btn-outline-dark">
+                            {% bs_icon 'plus-square' %}Новая Задача
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Задача</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Часы</th>
+                    <th scope="col">Дедлайн</th>
+                    <th scope="col">Удалить</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in object_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'customers:task_update' pk=task.pk %}">
+                            {{ task.pk }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'customers:task_update' pk=task.pk %}">
+                            {{ task.name }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'customers:task_update' pk=task.pk %}">
+                            {{ task.state_text }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'customers:task_update' pk=task.pk %}">
+                            {{ task.estimate }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'customers:task_update' pk=task.pk %}">
+                            {{ task.deadline }}
+                        </a>
+                    </td>
+                    <td>
+                        <div class="text-center">
+                            <a href="{% url 'customers:project_delete' pk=task.pk %}">
+                                <button type="button" class="btn btn-outline-dark">
+                                    {% bs_icon 'trash' %}
+                                </button>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+        </fieldset>
+    </div>
+</form>
 {% endblock %}

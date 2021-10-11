@@ -30,12 +30,12 @@ class Project(models.Model):
 
 class Task(models.Model):
     # project | state_index | state_text | estimate | deadline_date
+    name = models.CharField(max_length=300)
     project = models.ForeignKey(Project, on_delete=models.PROTECT)
-    description = models.CharField(max_length=300)
     state_text = models.CharField(max_length=20)
     estimate = models.FloatField()
     deadline = models.DateField()
     # ready = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.description
+        return self.name

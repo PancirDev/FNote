@@ -13,7 +13,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['description', 'state_text', 'estimate', 'deadline']
+    list_display = ['name', 'state_text', 'estimate', 'deadline']
 
 
 admin.site.register(Customer, CustomerAdmin)

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm, TextInput, EmailInput, Textarea, NumberInput, DateInput, CheckboxInput
 
-from .models import Customer, Project
+from .models import Customer, Project, Task
 
 
 class CustomerForm(forms.ModelForm):
@@ -85,5 +85,40 @@ class ProjectForm(forms.ModelForm):
             }),
             'completed': CheckboxInput(attrs={
                 'class': 'form-check-input',
+            }),
+        }
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['name', 'project', 'state_text', 'estimate', 'deadline']
+        labels = {
+            'name': 'Задача',
+            'project': 'Проект',
+            'state_text': 'Статус',
+            'estimate': 'Часы',
+            'deadline': 'Срок сдачи',
+        }
+        widgets = {
+            'name': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Задача',
+            }),
+            'project': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Проект',
+            }),
+            'state_text': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Статус',
+            }),
+            'estimate': NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Часы',
+            }),
+            'deadline': DateInput(attrs={
+                'class': 'form-control',
+                'placeholder': '2021-12-31',
             }),
         }
